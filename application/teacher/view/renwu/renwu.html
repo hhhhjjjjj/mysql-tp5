@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+                <!-- <div class="x-body"> -->
+            <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">审核任务书</button>
+      <span class="x-right" style="line-height:40px">共有数据：{$info.count}条</span>
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>课题题目</th>
+          <th>指导老师</th>
+          <th>职称</th>
+          <th>老师编号</th>
+          <th>课题来源</th> 
+          <!-- <th>提交时间</th> -->
+           <th>提交状态</th> 
+           <th>审核状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+          {volist name='list' id='val' key="k"}
+        <tr id="tr{$val.id}" >
+          <td>{$page?($currentPage-1)*5+$k:$k}</td>
+          <td>{$val.keti_name}</td>   
+          <td>{$val.teacher}</td> 
+          <td>{$val.jiaoyan}</td>
+          <td>{$val.gonghao}</td>
+          <td>{$val.origin}</td>
+          
+          {eq name="$val.renwu_state" value="0"}
+          <td style="color:red;">未提交</td>
+          {/eq}
+          {eq name="$val.renwu_state" value="1"}
+          <td style="color:green;">已提交</td>
+          {/eq}
+          {eq name="$val.renwuS_state" value="0"}
+          <td style="color:red;">未审核</td>
+          {/eq}
+          {eq name="$val.renwuS_state" value="1"}
+          <td style="color:green;">已审核</td>
+          {/eq}
+          {eq name="$val.renwuS_state" value="2"}
+          <td style="color:green;">已审核</td>
+          {/eq}
+          {eq name="$val.renwuS_state" value="0"}
+          <td>
+            <!-- <a href="javascript:" style="color:blue;" onclick="x_admin_show('审核任务书','{:url('renwu/shenhe',['xuehao'=>$val.xuehao])}',600,400)">审核课题</a> -->
+            <a href="{:url('renwu/shenhe',['xuehao'=>$val.xuehao])}" style="color:blue;" >审核任务书</a>
+          </td>
+        {/eq} 
+        {eq name="$val.renwuS_state" value="1"}
+          <td>
+            <!-- <a href="javascript:" style="color:green;" onclick="x_admin_show('审核任务书','{:url('renwu/shenhe',['xuehao'=>$val.xuehao])}',600,400)">审核通过</a> -->
+            <a href="{:url('renwu/shenhe',['xuehao'=>$val.xuehao])}" style="color:green;">审核通过</a>
+          </td>
+        {/eq}  
+        {eq name="$val.renwuS_state" value="2"}
+          <td>
+            <!-- <a href="javascript:" style="color:red;" onclick="x_admin_show('审核任务书','{:url('renwu/shenhe',['xuehao'=>$val.xuehao])}',600,400)">审核不通过</a> -->
+            <a href="{:url('renwu/shenhe',['xuehao'=>$val.xuehao])}" style="color:red;" >审核不通过</a>
+          </td>
+        {/eq}          
+        </tr>
+        {/volist}
+      </tbody>
+    </table> 
+    <div class="page">
+      <div>
+        {$list->render()}
+      </div>
+    </div>
+    </div>  
+    </div>
+
+
+</body>
+<script>
+
+
+function del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+          url:"{:url('keti/del')}",
+          data:{id:id},
+          dataType:'json',
+          type:'post',
+          success:function(data){
+              // console.log(data.status);
+              if(data.status==1){
+                  //发异步删除数据
+                //   $(obj).parents("tr").remove();
+                  layer.msg('已删除!',{icon:1,time:1000});
+              }else{
+                  layer.msg('删除失败!',{icon:2,time:1000});
+              }
+          }
+        })
+    });
+}
+
+
+
+</script>
+</html>

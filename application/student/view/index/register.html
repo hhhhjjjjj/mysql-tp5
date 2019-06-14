@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>办公管理系统</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__CSS__/font.css">
+	<link rel="stylesheet" href="__CSS__/xadmin.css">
+    <script type="text/javascript" src="__JS__/jquery-3.2.1.min.js"></script>
+    <style>
+        .layui-form input[type=radio], .layui-form select {
+     display: inline-block; 
+        }
+        .login{
+            margin:0 auto 0 auto;
+        }
+        input[type=text],input[type=password]{
+            margin-bottom:5px;
+        }
+    </style>
+</head>
+<body class="login-bg">
+    <div class="x-body layui-anim layui-anim-up">
+    <div class="login layui-anim layui-anim-up">
+        <div class="message">毕业设计跟踪管理系统</div>
+        <div id="darkbannerwrap"></div>
+        
+        <form method="post" class="layui-form" action="{:url('index/doregister')}" id="form_login">
+            <input name="xuehao" placeholder="学号"  type="text" lay-verify="required" class="layui-input" >
+              <!-- <hr class="hr">   -->
+            <input name="user" placeholder="姓名"  type="text" lay-verify="required" class="layui-input" >
+             <!-- <hr class="hr">  -->
+            <input name="password" placeholder="密码"  type="password" lay-verify="required" class="layui-input" >
+             <!-- <hr class="hr">  -->
+            <input id="password_sec" placeholder="确认密码"  type="password" lay-verify="required" class="layui-input" >
+             <!-- <hr class="hr">  -->
+            <input name="class" placeholder="班级    格式：xx级xx专业xx班"  type="text" lay-verify="required" class="layui-input" >
+             <!-- <hr class="hr">  -->
+            <input name="" lay-verify="required" placeholder=""  type="text" class="layui-input" value="信息技术学院" disabled>
+             <!-- <hr class="hr2">  -->
+              <!-- <div class="layui-form-item"> 
+	           <label class="layui-form-label" style="text-align:left;">帐号类型</label> 
+	          <div class="layui-input-block" style="line-height:36px;">
+		        <input type="radio" name="shenfen"  value="S" title="学生">学生
+                <input type="radio" name="shenfen"  value="T" title="老师">老师
+                <input type="radio" name="shenfen"  value="A" title="管理员">管理员
+	        </div>
+           </div>    -->
+        <!-- <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  课题来源
+              </label>
+                <div class="layui-input-inline">
+                    <select name="origin" >
+                            <option value="请选择">请选择</option>
+                            <option value="指导教师拟定">指导教师拟定</option>
+                            <option value="学生建议">学生建议</option>
+                            <option value="企业和社会征集">企业和社会征集</option>
+                            <option value="科研单位提供">科研单位提供</option>
+                    </select>
+                </div>
+            </div> -->
+             <input type="text" name="code" placeholder="验证码" id="code"><img src="{:captcha_src()}" class="verify" onclick="javascript:this.src='{:captcha_src()}?rand='+Math.random()" > 
+            <!-- <hr class="hr2"> -->
+             <input value="注册" lay-submit lay-filter="login" style="width:100%; display:inline; margin-right:40%;" type="submit"> 
+            
+            <!-- <hr class="hr20" > -->
+        </form>
+        <!-- <div class="layui-form-item">
+     <label class="layui-form-label" style="width:100px">是否已购买：</label>
+     <div class="layui-input-block" id="IsPurchased">
+           <input type="radio"  name="t" value="是" title="是" />
+           <input type="radio"  name="t" value="否" title="否" />
+     </div> -->
+</div>
+
+    </div>
+    </div>
+</body>
+<script type="text/javascript">
+$('input:submit').click(function(){
+    
+// })
+// layui.use(['form','layer'], function(){
+//     $ = layui.jquery;
+//     var form = layui.form
+    //监听提交
+    // form.on('submit(add)', function(data){
+        var xuehao=$('input[name="xuehao"]').val();
+        var user=$('input[name="user"]').val();
+
+        var code=$('input[name="code"]').val();
+        var psd_fir=$('input[name="password"]').val();
+        var psd_sec=$('#password_sec').val();
+        var classa=$('input[name="class"]').val();
+        if(xuehao==""){
+            alert('输入的学号不能为空!');
+            return false;
+        }
+        if(user==""){
+            alert('输入的姓名不能为空!');
+            return false;
+        }
+        if(psd_fir==""){
+            alert('输入的密码不能为空!');
+            return false;
+        }
+        if(psd_sec==""){
+            alert('输入的确认密码不能为空!');
+            return false;
+        }
+        if(psd_fir!=psd_sec){
+            alert('两次密码输入不一致!');
+            return false;
+        }
+        if(classa==""){
+            alert('输入的班级不能为空!');
+            return false;
+        }
+        if(code==""){
+            alert('验证码不能为空');
+            return false;
+        }
+        // $.ajax({
+        //   url:"{:url('index/doregister')}",
+        //   data:$('#myform').serialize(),
+        //   dataType:'json',
+        //   type:'post',
+        //   success:function(data){
+        //         if(data.status==1){
+        //             layer.alert("修改成功", {icon: 6},function () {
+        //                 // 获得frame索引
+        //                 var index = parent.layer.getFrameIndex(window.name);
+        //                 //关闭当前frame
+        //                 parent.layer.close(index);
+        //             });
+        //         }else{
+        //             layer.alert(data.msg, {icon: 7});
+        //         }
+        //   }
+        // })
+
+
+        //  });
+});
+// $('input:button').click(function(){
+    // $.ajax({
+    //       url:"{:url('index/register')}",
+    //       data:$('#myform').serialize(),
+    //       dataType:'json',
+    //       type:'post',
+    //       success:function(data){
+                // if(data.status==1){
+                //     layer.alert("修改成功", {icon: 6},function () {
+                //         // 获得frame索引
+                //         var index = parent.layer.getFrameIndex(window.name);
+                //         //关闭当前frame
+                //         parent.layer.close(index);
+                //     });
+                // }else{
+                //     layer.alert(data.msg, {icon: 7});
+                // }
+        //   }
+        // })
+// })
+
+</script>
+</html>

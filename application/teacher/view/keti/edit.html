@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data">
+        <xblock>
+      <button class="layui-btn">修改课题</button>
+    </xblock>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>课题题目
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="keti_name" value="{$info.keti_name}" required="" autocomplete="off"  class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>指导老师
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="teacher" value="{$info.teacher}" required="" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>老师编号
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="gonghao" value="{$info.gonghao}" required="" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_pass" class="layui-form-label">
+                  <span class="x-red">*</span>职称
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_pass" name="jiaoyan" required="" value="{$info.jiaoyan}" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>课题来源
+              </label>
+                <div class="layui-input-inline">
+                    <select name="origin" required="">
+                            <!-- <option value="请选择" >请选择</option> -->
+                            <option value="指导教师拟定" {eq name="$info.origin" value="指导教师拟定"}selected {/eq}>指导教师拟定</option>
+                            <option value="学生建议" {eq name="$info.origin" value="学生建议"}selected {/eq}>学生建议</option>
+                            <option value="企业和社会征集" {eq name="$info.origin" value="企业和社会征集"}selected {/eq}>企业和社会征集</option>
+                            <option value="科研单位提供" {eq name="$info.origin" value="科研单位提供"}selected {/eq}>科研单位提供</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>详细内容
+                </label>
+                <div class="layui-input-inline">
+                    <textarea name="detail" rows="10" cols="60" required>{$info.detail}</textarea>
+                </div>
+            </div>
+             <div class="layui-form-item">
+                <input type="hidden" name="id" value="{$info.id}" />
+                <label for="L_repass" class="layui-form-label">
+              </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                  提交
+              </button>
+            </div>  
+
+             
+        </form>
+    </div>
+
+
+</body>
+
+<script>
+
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('keti/edit')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("修改成功", {icon: 6},function () {
+                        location.href = '{:url('teacher/keti/addketi')}';
+                        // 获得frame索引
+                        // var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

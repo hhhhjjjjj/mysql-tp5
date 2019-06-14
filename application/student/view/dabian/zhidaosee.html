@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+</head>
+<style>
+ 
+    </style>
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data" action="">
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>学号
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="" value="{$data.xuehao}" required="" autocomplete="off"  class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>姓名 
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="" value="{$data.user}" required="" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>班级
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="" value="{$data.class}" required="" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>课题题目
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="" value="{$data.keti_name}" required="" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>课题来源
+              </label>
+                <div class="layui-input-inline">
+                    <select name="" required="" disabled>
+                            <!-- <option value="请选择" >请选择</option> -->
+                            <option value="指导教师拟定" {eq name="$data.origin" value="指导教师拟定"}selected {/eq}>指导教师拟定</option>
+                            <option value="学生建议" {eq name="$data.origin" value="学生建议"}selected {/eq}>学生建议</option>
+                            <option value="企业和社会征集" {eq name="$data.origin" value="企业和社会征集"}selected {/eq}>企业和社会征集</option>
+                            <option value="科研单位提供" {eq name="$data.origin" value="科研单位提供"}selected {/eq}>科研单位提供</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>老师评价
+                </label>
+                <div class="layui-input-inline">
+                    <textarea name="zhidao_pingjia" rows="10" cols="60" required disabled>{$data.zhidao_pingjia}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>成绩
+              </label>
+                <div class="layui-input-inline">
+                    <input type="number" id="L_username" name="zhidao_score" value="{$data.zhidao_score}" required="" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+             <div class="layui-form-item">
+                 <input type="hidden" name="xuehao" value="{$data.xuehao}">
+                <label for="L_repass" class="layui-form-label">
+              </label>
+               
+            </div>  
+
+             
+        </form>
+    </div>
+
+
+</body>
+
+<script>
+
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('score/chengji')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("录入成功", {icon: 6},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

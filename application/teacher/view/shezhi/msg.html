@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data">
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>姓名：
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="name" value="{$info.name}" required="" autocomplete="off"  class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>工号：
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="name" value="{$info.gonghao}" required="" autocomplete="off"  class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>院系：
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="name" value="信息技术学院" required="" autocomplete="off"  class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>职称：
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="name" value="{$info.jclass}" required="" autocomplete="off"  class="layui-input" disabled>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$info.id}">
+        </form>
+    </div>
+</body>
+
+<script>
+
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('department/editDepartment')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("修改成功", {icon: 6},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data">
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>用户名
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="user_name" required="" autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>真实姓名
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="real_name"  required="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>角色
+              </label>
+                <div class="layui-input-inline">
+                    <select name="role_id" >
+                        {volist name="role_list" id='val'}
+                            <option value="{$val.id}" >{$val.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>部门
+              </label>
+                <div class="layui-input-inline">
+                    <select name="department_id" >
+                        {volist name="department_list" id='val'}
+                            <option value="{$val.id}" >{$val.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>职位
+              </label>
+                <div class="layui-input-inline">
+                    <select name="job_id" >
+                        {volist name="jobs_list" id='val'}
+                            <option value="{$val.id}" >{$val.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label for="L_pass" class="layui-form-label">
+                  <span class="x-red"></span>密码
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_pass" name="password" required="" value="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+                  <span class="x-red"></span>头像
+              </label>
+                <div class="layui-input-inline">
+                    <input type="file" id="L_repass" name="img_path" autocomplete="off" class="layui-input">
+                </div>*不修改，请为空。
+            </div>
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+                  <span class="x-red">*</span>状态
+              </label>
+                <div class="layui-input-inline">
+                    <!-- <input type="text" id="L_repass" name="goods_address" required="" 
+                  autocomplete="off" class="layui-input"> -->
+                    <select name='status'>
+                        <option value="0" selected >在职</option>
+                        <option value="1" >离职</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+              </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                  增加
+              </button>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+
+<script>
+
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('index/addUser')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("增加成功", {icon: 6},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert("增加失败", {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

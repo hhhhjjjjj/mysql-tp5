@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <!-- <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data">
+        <div class=" gxf_problem gxf_problem_title">         
+            <div><h2><span></span>课题基本信息</h2></div>
+        </div>
+        </form>
+    </div> -->
+    <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">我的毕业设计(论文)材料</button>
+
+       <span class="x-right" style="line-height:40px">共有数据：4 条</span>
+
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>是否提交</th>
+          <!-- <th>姓名(学号)</th>
+          <th>指导老师(编号)</th>
+          <th>题目来源</th>
+          <th>提交时间</th> -->
+          <!-- <th>状态</th> -->
+          <th>材料名称</th>
+          <!-- <th>操作</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="" >
+          <td>1</td>
+          {eq name="$info.renwu_state" value="1"}
+          <td style="color:green;" >是</td>
+          {else/}
+          <td style="color:red;">否</td>
+          {/eq}
+          <td>学生任务书</td>
+        </tr>
+        <tr id="" >
+          <td>2</td>
+          {eq name="$info.kaiti_state" value="1"}
+          <td style="color:green;">是</td>
+          {else/}
+          <td style="color:red;">否</td>
+          {/eq}
+          <td>学生开题报告</td>
+        </tr>
+        <tr id="" >
+          <td>3</td>
+          {eq name="$info.check_state" value="1"}
+          <td style="color:green;">是</td>
+          {else/}
+          <td style="color:red;">否</td>
+          {/eq}
+          <td>学生中期检查</td>
+        </tr>
+        <tr id="" >
+          <td>4</td>
+          {eq name="$info.sheji_state" value="1"}
+          <td style="color:green;">是</td>
+          {else/}
+          <td style="color:red;">否</td>
+          {/eq}
+          <td>学生毕业设计</td>
+        </tr>
+      </tbody>
+    </table> 
+
+    <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">指导成绩</button>
+      
+      
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>学号</th>
+          <th>姓名</th>
+          <th>指导老师(编号)</th>
+          <th>提交时间</th>
+           <th>状态</th>
+           <th>成绩</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {eq name="$list.status" value="0"}
+          <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+           <td></td>
+           <td></td>
+          <td></td>
+        </tr>
+        {/eq}
+        {eq name="$list.status" value="1"}
+        <tr id="" >
+          <td style="text-align:center;">1</td>
+          <td>{$list.xuehao}</td>   
+          <td>{$Think.session.user_name}</td> 
+          <td>{$list.name}({$list.gonghao})</td> 
+          <td>{$list.zhidao_time|date='Y-m-d H:i:s',###}</td>
+          {eq name="$list.zhidaoT_state" value="0"}
+            <td style="color:red;">等待录入</td>
+            {else/}
+            <td style="color:green;">已录入</td>
+          {/eq}
+          <td>{$list.zhidao_score}</td> 
+          <td>
+            <a href="javascript:" onclick="x_admin_show('指导成绩','{:url('dabian/zhidaosee')}',600,400)" style="color:blue;">查看</a>
+          </td>
+        </tr>
+        {/eq}
+      </tbody>
+    </table> 
+
+    <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">答辩成绩</button>
+      
+      
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>学号</th>
+          <th>姓名</th>
+          <th>答辩录入员(编号)</th>
+          <th>提交时间</th>
+           <th>状态</th>
+           <th>成绩</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+         {eq name="$dabian.status" value="0"}
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+         {/eq}
+         {eq name="$dabian.status" value="1"}
+        <tr id="" >
+          <td style="text-align:center;">1</td>
+          <td>{$dabian.xuehao}</td>   
+          <td>{$Think.session.user_name}</td> 
+          <td>{$dabian.name}({$dabian.gonghao_dabian})</td> 
+          <td>{$dabian.dabian_time|date='Y-m-d H:i:s',###}</td>
+          {eq name="$dabian.dabianT_state" value="0"}
+            <td style="color:red;">等待录入</td>
+            {else/}
+            <td style="color:green;">已录入</td>
+          {/eq}
+          <td>{$dabian.dabian_score}</td>
+          <td>
+            <a href="javascript:" onclick="x_admin_show('答辩成绩','{:url('dabian/dabiansee')}',600,400)" style="color:blue;">查看</a>
+          </td>
+        </tr>
+        {/eq}
+      </tbody>
+    </table> 
+
+    <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">最终成绩</button>
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>学号</th>
+          <th>姓名</th>
+          <th>录入时间</th>
+           <th>状态</th>
+           <th>成绩</th>
+        </tr>
+      </thead>
+      <tbody>
+        {eq name="$final.status" value="0"}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+           <td></td>
+           <td></td>
+        </tr>
+        {/eq}
+         {eq name="$final.status" value="1"}
+        <tr id="" >
+          <td style="text-align:center;">1</td>
+          <td>{$final.xuehao}</td>   
+          <td>{$Think.session.user_name}</td>
+          <td>{$final.time|date='Y-m-d H:i:s',###}</td>      
+          {eq name="$final.state" value="0"}
+            <td style="color:red;">等待录入</td>
+            {else/}
+            <td style="color:green;">已录入</td>
+          {/eq}
+          <td>{$final.score}</td>
+         
+        </tr>
+        {/eq}
+      </tbody>
+    </table> 
+</body>
+
+<script>
+
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('power/edit')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("修改成功", {icon: 6},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

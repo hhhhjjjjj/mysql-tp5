@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>毕业设计跟踪管理后台</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__CSS__/font.css">
+	<link rel="stylesheet" href="__CSS__/xadmin.css">
+    <script type="text/javascript" src="__JS__/jquery-3.2.1.min.js"></script>
+    <script src="__STATIC__/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__JS__/xadmin.js"></script>
+    <style>
+        div {
+    box-sizing: border-box;
+}
+div, p, li {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+div {
+    display: block;
+}
+div, p, li {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.gxf_problem h2 {
+    font: 16px/42px 'Microsoft yahei';
+    padding-left: 24px;
+    position: relative;
+}
+.gxf_problem > div > h2 > span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: 4px;
+    top: 16px;
+    background: url("/static/images/sanjiao.png") no-repeat 0 0;
+}
+.my-subject {
+    height:230px;
+    padding: 14px 24px;
+    border: 1px solid #cfcfcf;
+    background-color: #fafafa;
+}
+.margb {
+    margin-bottom: 20px;
+}
+.txt_red {
+    color: #f00 !important;
+}
+s, i {
+    font-style: normal;
+    text-decoration: none;
+}
+.greenBox {
+    background-color: #89c997;
+}
+.color-box {
+    display: inline-block;
+    width: 24px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+}
+
+.orangeBox {
+    background-color: #fdbd6a;
+}
+
+
+.wathetBox {
+    background-color: #dcf1f2;
+}
+
+
+.grayBox {
+    background-color: #d2d2d2;
+}
+.clearfix {
+    zoom: 1;
+}
+.plan-child {
+    width: 10%;
+    height: 150px;
+    text-align: center;
+    float: left;
+    border-left: 1px solid #cfcfcf;
+    border-right: 1px solid #cfcfcf;
+    margin-left: -1px;
+}
+.plan-bgc-gray {
+    background: url('/static/images/gray.png') no-repeat bottom center;
+    background-size: 100%;
+}
+.plan-time {
+    font-size: 12px;
+}
+.plan-bgc-green {
+    background: url('/static/images/green.png') no-repeat bottom center;
+    background-size: 100%;
+}
+.plan-bgc-yellow {
+    background: url('/static/images/yellow.png') no-repeat bottom center;
+    background-size: 100%;
+}
+.plan-tiele {
+    height: 42px;
+    line-height: 27px;
+}
+    </style>
+</head>
+<body>
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo"><a href="./index.html">毕业设计跟踪管理系统</a></div>
+        <div class="left_open">
+            <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+        </div>
+        <ul class="layui-nav right" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;">{$Think.session.teacher_gonghao} </a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a href="{:url('index/loginout')}">退出</a></dd>
+            </dl>
+          </li>
+          <!-- <li class="layui-nav-item to-index"><a href="/">前台首页</a></li> -->
+        </ul>
+        
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+     <!-- 左侧菜单开始 -->
+    <div class="left-nav">
+      <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe70b;</i>
+                    <cite>首页管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('index/gonggaoList')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>通知公告</cite>
+                            
+                        </a>
+                    </li >
+
+                  
+                </ul>
+            </li>
+
+
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe735;</i>
+                    <cite>师生双选管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('keti/addketi')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>老师添加题目</cite>
+                            
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="{:url('keti/shenhelist')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>老师审核课题</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="{:url('keti/ketiList')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>课题列表</cite>
+                        </a>
+                    </li>
+                     
+                                             
+                </ul>
+            </li>
+
+
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe749;</i>
+                    <cite>过程文档管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                     <li>
+                        <a _href="{:url('renwu/renwu')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>审核任务书</cite>
+                        </a>
+                    </li>   
+                    <li>
+                        <a _href="{:url('kaiti/kaiti')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>审核开题报告</cite>
+                            
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="{:url('check/check')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>审核中期检查</cite>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a _href="{:url('weekly/replylist')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>提交指导记录</cite>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a _href="{:url('sheji/sheji')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>审核毕业设计(论文)</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe749;</i>
+                    <cite>评审答辩和成绩管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('dabian/dabian')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>审核答辩申请</cite>
+                            
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="{:url('dabian/anpai')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>安排答辩时间</cite>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a _href="{:url('weekly/replylist')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>提交答辩记录</cite>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a _href="{:url('score/zhiscore')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>录入指导成绩</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>用户设置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{:url('shezhi/fixed')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>修改密码</cite>
+                            
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="{:url('shezhi/msg')}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>个人信息维护</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+          <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                 <blockquote class="layui-elem-quote">欢迎用户：
+            <span class="x-red">{$Think.session.teacher_name}({$Think.session.teacher_gonghao})</span>！登录时间:{$data.time|date='Y-m-d H:i:s',###}</blockquote>
+       
+        <div id="progress_bar">
+            <div class="gxf_problem gxf_problem_detail">
+                <div><h2><span></span>完成步骤</h2></div>
+            </div>
+            <div class="my-subject">
+                <!-- <div class="margb">
+                    <i class="txt_red">*</i><span class="color-box greenBox"></span>表示已完成的工作阶段，
+                    <span class="color-box orangeBox"></span>表示正在进行的工作阶段，
+                    <span class="color-box wathetBox"></span>表示尚未开始的工作阶段；
+                    <span class="color-box grayBox"></span>表示未对该项操作进行时间设置（以当前所处时间与设置的时间段比较后进行提示）
+                </div> -->
+                <!--进度块的盒子-->
+                <div id="plan_box" class="clearfix  plan">
+                    <div class="plan-child" style="width:12.5%"><h4 class="plan-tiele plan-bgc-gray">申报课题</h4><p class="plan-time">2018/5/01 15:08:00<br>2018/6/01 15:08:00</p></div>
+                    <div class="plan-child" style="width:12.5%"><h4 class="plan-tiele plan-bgc-gray">学生选题</h4><p class="plan-time">2018/6/01 15:08:00<br>2018/6/23 15:08:00</p></div>
+                    <div class="plan-child" style="width:12.5%"><h4 class="plan-tiele plan-bgc-green">审核任务书</h4><p class="plan-time">2018/11/01 15:08:00<br>2018/12/01 15:08:00</p></div>
+                    <div class="plan-child" style="width:12.5%"><h4 class="plan-tiele plan-bgc-green">审核开题报告</h4><p class="plan-time">2018/12/6 15:08:00<br>2019/1/18 15:08:00</p></div>
+                    <div class="plan-child" style="width:12.5%"><h4 class="plan-tiele plan-bgc-green">审核中期检查</h4><p class="plan-time">2018/12/6 15:08:00<br>2019/3/29 15:08:00</p></div>
+                    <div class="plan-child" style="width:12.5%"><h4 class="plan-tiele plan-bgc-green">审核毕设论文</h4><p class="plan-time">2018/12/6 15:08:00<br>2019/5/3 15:08:00</p></div>
+                    <div class="plan-child" style="width:12.5%"><h4 class="plan-tiele plan-bgc-yellow">评审答辩</h4><p class="plan-time">2018/12/6 15:08:00<br>2019/5/17 15:08:00</p></div>
+                </div>
+            </div>
+        </div>
+        
+      
+    </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="page-content-bg"></div>
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <!-- 底部开始 -->
+    <div class="footer">
+        <div class="copyright">Copyright ©2019 毕业设计跟踪管理系统 v2.3 All Rights Reserved</div>  
+    </div>
+   
+</body>
+</html>

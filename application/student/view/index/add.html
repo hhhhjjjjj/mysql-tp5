@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+        .gxf_problem h2 {
+    font: 16px/42px 'Microsoft yahei';
+    padding-left: 24px;
+    position: relative;
+}
+        .gxf_problem > div > h2 > span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: 4px;
+    top: 16px;
+    background: url("/static/images/sanjiao.png") no-repeat 0 0;
+}
+    </style>
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" action="{:url('index/add')}" enctype="multipart/form-data">
+            <div class=" gxf_problem gxf_problem_title">         
+                 <div><h2><span></span>录入课题</h2></div>
+           </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>课题题目
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="keti_name" required="" autocomplete="off" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>指导老师
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="teacher" value="" required="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>老师编号
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="gonghao" value="" required="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>课题来源
+              </label>
+                <div class="layui-input-inline">
+                    <select name="origin" >
+                            <option value="请选择">请选择</option>
+                            <option value="指导教师拟定">指导教师拟定</option>
+                            <option value="学生建议">学生建议</option>
+                            <option value="企业和社会征集">企业和社会征集</option>
+                            <option value="科研单位提供">科研单位提供</option>
+                    </select>
+                </div>
+            </div>
+             <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>职称
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="jiaoyan" value="" required="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+             <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>详细内容
+                </label>
+                <div class="layui-input-inline">
+                    <textarea name="detail" rows="10" cols="60" ></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="">
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+              </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                  提交
+              </button>
+            </div>
+        </form>
+                <!-- <div class="x-body"> -->
+            <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">我的课题</button>
+      {eq name="$info.state_aa" value="0"}
+      <span class="x-right" style="line-height:40px">共有数据：0 条</span>
+      {else/}
+      <span class="x-right" style="line-height:40px">共有数据：1 条</span>
+      {/eq}
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>课题题目</th>
+          <th>题目来源</th>
+          <th>申报（添加）时间</th>
+          <!-- <th>状态</th> -->
+          <th>审核状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+          {eq name="$info.state_aa" value="0"}
+           <tr id="" >
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          {else/}
+        <tr id="" >
+          <td style="text-align:center;">1</td>
+          <td>{$info.keti_name}</td>   
+          <td>{$info.origin}</td> 
+          <td>{$info.timer|date='Y-m-d H:i:s',###}</td>
+          {eq name="$info.state" value="0"}
+            <td style="color:blue;">正在审核</td>
+          {/eq}  
+          {eq name="$info.state" value="1"}
+            <td style="color:green;">审核通过</td>
+          {/eq} 
+          {eq name="$info.state" value="2"}
+            <td style="color:red;">审核不通过</td>
+          {/eq} 
+          <td>
+            <a href="javascript:" onclick="x_admin_show('查看','{:url('keti/see')}',600,400)" style="color:blue;">查看</a>
+          </td>
+        </tr>
+        {/eq}
+      </tbody>
+    </table> 
+    </div>  
+    </div>
+
+
+</body>
+
+</html>

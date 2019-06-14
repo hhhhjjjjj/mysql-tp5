@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+                <!-- <div class="x-body"> -->
+            <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">指导成绩</button>
+      <span class="x-right" style="line-height:40px">共有数据：{$info.count}条</span>
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>课题题目</th>
+          <th>指导老师</th>
+          <th>职称</th>
+          <th>老师编号</th>
+          <th>课题来源</th> 
+          <th>学号</th> 
+          <th>毕业设计审核状态</th> 
+          <th>录入状态</th> 
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+          {volist name='list' id='val' key="k"}
+        <tr id="tr{$val.id}" >
+          <td>{$page?($currentPage-1)*5+$k:$k}</td>
+          <td>{$val.keti_name}</td>   
+          <td>{$val.teacher}</td> 
+          <td>{$val.jiaoyan}</td>
+          <td>{$val.gonghao}</td>
+          <td>{$val.origin}</td>
+           <td>{$val.xuehao}</td> 
+           {eq name="$val.shejiS_state" value="1"} 
+           <td style="color:green;">通过审核</td>
+           {/eq}
+           {eq name="$val.shejiS_state" value="0"} 
+           <td style="color:red;">未审核</td>
+           {/eq}
+           {eq name="$val.shejiS_state" value="2"} 
+           <td style="color:red;">审核不通过</td>
+           {/eq}
+           {eq name="$val.luru_state" value="0"} 
+           <td style="color:blue;">等待录入</td>
+           {/eq}
+           {eq name="$val.luru_state" value="1"} 
+           <td style="color:green;">已录入</td>
+           {/eq}
+          <td>
+            <!-- <a href="javascript:" style="color:blue;" onclick="x_admin_show('录入成绩','{:url('score/chengji',['xuehao'=>$val.xuehao])}',600,400)">录入成绩</a> -->
+            <a href="{:url('score/chengji',['xuehao'=>$val.xuehao])}" style="color:blue;" >录入成绩</a>
+          </td>
+        </tr>
+        {/volist}
+      </tbody>
+    </table>
+     <div class="page">
+      <div>
+        {$list->render()}
+      </div>
+    </div> 
+    </div>  
+    </div>
+
+
+</body>
+<script>
+
+
+function del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+          url:"{:url('keti/del')}",
+          data:{id:id},
+          dataType:'json',
+          type:'post',
+          success:function(data){
+              // console.log(data.status);
+              if(data.status==1){
+                  //发异步删除数据
+                //   $(obj).parents("tr").remove();
+                  layer.msg('已删除!',{icon:1,time:1000});
+              }else{
+                  layer.msg('删除失败!',{icon:2,time:1000});
+              }
+          }
+        })
+    });
+}
+
+
+
+</script>
+</html>

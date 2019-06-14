@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" action="{:url('shezhi/fixed')}" enctype="multipart/form-data">
+           <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>请输入您现在的密码:
+              </label>
+                <div class="layui-input-inline">
+                    <input type="password" id="L_email" name="psd_now" required="" autocomplete="off" value="" class="layui-input" placeholder="请输入旧密码">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>请设置新的密码:
+              </label>
+                <div class="layui-input-inline">
+                    <input type="password" id="L_email" name="psd_new1" required="" autocomplete="off" value="" class="layui-input" placeholder="请输入新密码">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>请再次输入新的密码:
+              </label>
+                <div class="layui-input-inline">
+                    <input type="password" id="L_username"  value="" name="psd_new2" required="" autocomplete="off" class="layui-input" placeholder="再次输入新密码">
+                </div>
+            </div>  
+            <input type="hidden" name="id" value="">
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+              </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                  确认修改
+              </button>
+            </div>
+        </form>
+    </div>  
+    </div>
+
+
+</body>
+<script>
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+        var psd_new1=$('input[name="psd_new1"]').val();
+        var psd_new2=$('input[name="psd_new2"]').val();
+        var psd_now=$('input[name="psd_now"]').val();
+        if(psd_now==""){
+            layer.msg('输入现在的密码不能为空!',{icon:2,time:1000});
+            return false;
+        }
+        if(psd_new1==""){
+            layer.msg('输入新的密码不能为空!',{icon:2,time:1000});
+            return false;
+        }
+        if(psd_new2==""){
+            layer.msg('再次输入新的密码不能为空!',{icon:2,time:1000});
+            return false;
+        }
+        if(psd_new1!=psd_new2){
+            layer.msg('两次密码输入不一致!',{icon:2,time:1000});
+            return false;
+        }
+        // $.ajax({
+        //   url:"{:url('power/addPower')}",
+        //   data:$('#myform').serialize(),
+        //   dataType:'json',
+        //   type:'post',
+        //   success:function(data){
+        //         if(data.status==1){
+        //             layer.alert("增加成功", {icon: 6},function () {
+        //                 // 获得frame索引
+        //                 var index = parent.layer.getFrameIndex(window.name);
+        //                 //关闭当前frame
+        //                 parent.layer.close(index);
+        //             });
+        //         }else{
+        //             layer.alert(data.msg, {icon: 7});
+        //         }
+        //   }
+        // })
+        // return false;
+    });
+
+});
+</script>
+</html>

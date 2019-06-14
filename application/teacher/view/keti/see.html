@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data">
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>课题题目
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="" value="{$info.keti_name}" required="" autocomplete="off"  class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>指导老师
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="" value="{$info.teacher}" required="" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>老师编号
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="" value="{$info.gonghao}" required="" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_pass" class="layui-form-label">
+                  <span class="x-red">*</span>职称
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_pass" name="" required="" value="{$info.jiaoyan}" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>课题来源
+              </label>
+                <div class="layui-input-inline">
+                    <select name="origin" required="" disabled>
+                            <!-- <option value="请选择" >请选择</option> -->
+                            <option value="指导教师拟定" {eq name="$info.origin" value="指导教师拟定"}selected {/eq}>指导教师拟定</option>
+                            <option value="学生建议" {eq name="$info.origin" value="学生建议"}selected {/eq}>学生建议</option>
+                            <option value="企业和社会征集" {eq name="$info.origin" value="企业和社会征集"}selected {/eq}>企业和社会征集</option>
+                            <option value="科研单位提供" {eq name="$info.origin" value="科研单位提供"}selected {/eq}>科研单位提供</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>详细内容
+                </label>
+                <div class="layui-input-inline">
+                    <textarea name="detail" rows="10" cols="50" required disabled>{$info.detail}</textarea>
+                </div>
+            </div>
+              
+
+             
+        </form>
+    </div>
+
+
+</body>
+
+<script>
+
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('power/edit')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("修改成功", {icon: 6},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

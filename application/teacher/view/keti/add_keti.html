@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+        .gxf_problem h2 {
+    font: 16px/42px 'Microsoft yahei';
+    padding-left: 24px;
+    position: relative;
+}
+        .gxf_problem > div > h2 > span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: 4px;
+    top: 16px;
+    background: url("/static/images/sanjiao.png") no-repeat 0 0;
+}
+    </style>
+</head>
+
+<body>
+    <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" action="{:url('keti/addketi')}" enctype="multipart/form-data">
+            <div class=" gxf_problem gxf_problem_title">         
+                 <div><h2><span></span>添加课题</h2></div>
+           </div>
+            <div class="layui-form-item">
+                <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>课题题目
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_email" name="keti_name" required="" autocomplete="off" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>指导老师
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="teacher" value="{$Think.session.teacher_name}" required="" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>职称
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="jiaoyan" value="" required="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>老师编号
+              </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="gonghao" value="{$Think.session.teacher_gonghao}" required="" autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>课题来源
+              </label>
+                <div class="layui-input-inline">
+                    <select name="origin" required="">
+                            <option value="请选择">请选择</option>
+                            <option value="指导教师拟定">指导教师拟定</option>
+                            <option value="学生建议">学生建议</option>
+                            <option value="企业和社会征集">企业和社会征集</option>
+                            <option value="科研单位提供">科研单位提供</option>
+                    </select>
+                </div>
+            </div>
+             <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>详细内容
+                </label>
+                <div class="layui-input-inline">
+                    <textarea name="detail" rows="10" cols="60" required></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="">
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+              </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                  提交
+              </button>
+            </div>
+        </form>
+                <!-- <div class="x-body"> -->
+            <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">老师的课题</button>
+      <span class="x-right" style="line-height:40px">共有数据：{$info.count}条</span>
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>课题题目</th>
+          <th>指导老师</th>
+          <th>职称</th>
+          <th>老师编号</th>
+          <th>课题来源</th> 
+          <th>添加时间</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+          {volist name='list' id='val' key="k"}
+        <tr id="tr{$val.id}" >
+          <td>{$page?($currentPage-1)*5+$k:$k}</td>
+          <td>{$val.keti_name}</td>   
+          <td>{$val.teacher}</td> 
+          <td>{$val.jiaoyan}</td>
+          <td>{$val.gonghao}</td>
+          <td>{$val.origin}</td>
+          <td>{$val.timer|date='Y-m-d H:i:s',###}</td>
+          {eq name="$val.state" value="0"}
+            <td style="color:red;">无人选</td>
+            {else/}
+            <td style="color:green;">有人选</td>
+          {/eq}
+          {eq name="$val.state" value="0"}
+          <td>
+            <!-- <a href="javascript:" onclick="x_admin_show('修改课题','{:url('keti/edit',['id'=>$val.id])}',600,400)"><i class="layui-icon">&#xe642;</i></a> -->
+            <a href="{:url('keti/edit',['id'=>$val.id])}" ><i class="layui-icon">&#xe642;</i></a>
+            <a href="javascript:" onclick="del(this,{$val.id})" ><i class="layui-icon">&#xe640;</i></a>
+          </td>
+        {else/}
+        <td>
+            <a href="javascript:" onclick="x_admin_show('查看','{:url('keti/seeUser',['xuehao'=>$val.xuehao,'id'=>$val.id])}',600,400)" style="color:blue;">查看</a>
+          </td>
+        {/eq}
+        </tr>
+        {/volist}
+      </tbody>
+    </table> 
+     <div class="page">
+      <div>
+        {$list->render()}
+      </div>
+    </div>
+    </div>  
+    </div>
+
+
+</body>
+<script>
+
+
+function del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+          url:"{:url('keti/del')}",
+          data:{id:id},
+          dataType:'json',
+          type:'post',
+          success:function(data){
+              // console.log(data.status);
+              if(data.status==1){
+                  //发异步删除数据
+                //   $(obj).parents("tr").remove();
+                  layer.msg('已删除!',{icon:1,time:1000},function () {
+                        // 获得frame索引
+                        location.href = '{:url('teacher/keti/addketi')}';
+                        // var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+              }else{
+                  layer.msg('删除失败!',{icon:2,time:1000});
+              }
+          }
+        })
+    });
+}
+
+
+
+</script>
+</html>

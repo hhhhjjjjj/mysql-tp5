@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <!-- <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data">
+        <div class=" gxf_problem gxf_problem_title">         
+            <div><h2><span></span>课题基本信息</h2></div>
+        </div>
+        </form>
+    </div> -->
+    <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">我的答辩安排</button>
+       {eq name="$info_ren.states" value="0"}
+       <span class="x-right" style="line-height:40px">共有数据：0 条</span> 
+       {else/}
+       <span class="x-right" style="line-height:40px">共有数据：1 条</span>
+       {/eq}
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>课题题目</th>
+          <th>姓名(学号)</th>
+          <th>指导老师(编号)</th>
+          <th>题目来源</th>
+          <th>提交时间</th>
+           <th>答辩时间</th> 
+          <th>审核状态</th>
+          <!-- <th>操作</th> -->
+        </tr>
+      </thead>
+      <tbody>
+          {eq name="$info_ren.states" value="0"}
+        <tr id="" >
+          <td></td>
+          <td></td>   
+          <td></td> 
+          <td></td> 
+          <td></td>
+          <td></td>
+          <td></td>
+           <td>
+            
+          </td> 
+        </tr>
+        {else/}
+        <tr id="" >
+          <td style="text-align:center;">1</td>
+          <td>{$info_ren.keti_name}</td>   
+          <td>{$info_ren.user}({$info_ren.user_xuehao})</td> 
+          <td>{$info_ren.teacher}({$info_ren.gonghao})</td> 
+          <td>{$info_ren.origin}</td>
+          <td>{$info_ren.times|date='Y-m-d H:i:s',###}</td>
+          <td>{$info_ren.dabian_time}</td>
+          {eq name="$info_ren.state" value="0"}
+            <td style="color:blue;">正在审核</td>
+           {/eq}  
+           {eq name="$info_ren.state" value="1"}
+            <td style="color:green;">审核通过</td>
+           {/eq} 
+          {eq name="$info_ren.state" value="2"}
+            <td style="color:red;">审核不通过</td>
+           {/eq} 
+          <!-- <td>
+            <a href="{:url('index/edit')}"><i class="layui-icon">&#xe642;</i></a>
+          </td> -->
+        </tr>
+        {/eq}
+      </tbody>
+    </table> 
+  <!-- </div> -->
+
+</body>
+
+<script>
+
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('power/edit')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("修改成功", {icon: 6},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

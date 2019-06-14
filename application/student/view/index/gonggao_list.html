@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>办公管理系统</title>
+  <link rel="stylesheet" href="__CSS__/font.css">
+  <link rel="stylesheet" href="__CSS__/xadmin.css">
+  <script type="text/javascript" src="__JS__/jquery-3.2.1.min.js"></script>
+  <script src="__STATIC__/lib/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="__JS__/xadmin.js"></script>
+</head>
+
+<body class="layui-anim layui-anim-up">
+  <div class="x-nav">
+    <span class="layui-breadcrumb">
+      <a href="">公告管理</a>
+      <a href="">公告列表</a>
+    </span>
+  </div>
+  <div class="x-body">
+    <div class="layui-row">
+      <form class="layui-form layui-col-md12 x-so">
+        <input class="layui-input" placeholder="标题" name="title" id="start" value="{$url_map.title|default=""}">
+        <input class="layui-input" placeholder="发布人" name="admin_name" id="end" value='{$url_map.admin_name|default=""}'>
+        <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+      </form>
+    </div>
+    <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">公告类型</button>
+      <span class="x-right" style="line-height:40px">共有数据：{$info.count}条</span>
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>标题</th>
+          <th>发布时间</th>
+          <th>发布人</th>
+          <!-- <th>状态</th> -->
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+        {volist name='list' id='val' key="k"}
+        <tr id="tr{$val.id}" >
+          <td>{$page?($currentPage-1)*5+$k:$k}</td>
+          <td>{$val.title}</td>    
+          <td>{$val.timer|date='Y-m-d H:i:s',###}</td>
+          <td>{$val.admin_name}</td>
+          <td>
+            <a href="javascript:" style="color:blue;" onclick="x_admin_show('查看公告','{:url('index/see',['id'=>$val.id])}',600,400)">查看</a>
+            <!-- <a href="javascript:" onclick="del(this,{$val.id})" ><i class="layui-icon">&#xe640;</i></a> -->
+          </td>
+        </tr>
+        {/volist}
+      </tbody>
+    </table>
+    <div class="page">
+      <div>
+        {$list->render()}
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+<script>
+
+
+function del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+          url:"{:url('index/del')}",
+          data:{id:id},
+          dataType:'json',
+          type:'post',
+          success:function(data){
+              // console.log(data.status);
+              if(data.status==1){
+                  //发异步删除数据
+                  $(obj).parents("tr").remove();
+                  layer.msg('已删除!',{icon:1,time:1000});
+              }else{
+                  layer.msg('删除失败!',{icon:2,time:1000});
+              }
+          }
+        })
+    });
+
+
+
+
+
+
+
+
+}
+
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head'}
+    <style>
+        .main {
+    margin: 5px 5px 5px 20px;
+        }
+        div, p, li {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.gxf_problem h2 {
+    font: 16px/42px 'Microsoft yahei';
+    padding-left: 24px;
+    position: relative;
+}
+.gxf_problem > div > h2 > span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: 4px;
+    top: 16px;
+    background: url("/static/images/sanjiao.png") no-repeat 0 0;
+}
+.gxf_pro_content {
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    /* margin-right: 20px; */
+    font: 14px/20px 'Microsoft yahei';
+    padding: 15px;
+}
+.gxf_designTable_box {
+    margin: 0;
+}
+ul, ol, li {
+    list-style: none;
+}
+.gxf_designTable_box > li > p {
+    width: 100%;
+    line-height: 20px;
+    margin: 10px 0;
+    border-left: 3px solid #22B3C8;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+input, textarea {
+    outline-color: #ccc;
+    border: 1px #ddd solid;
+}
+select, input, textarea {
+    font-size: 15px;
+    margin: 0;
+}
+select, input {
+    vertical-align: middle;
+}
+input, textarea, keygen, select, button {
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px Arial;
+}
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "微软雅黑", "宋体";
+    background-color: white;
+        cursor: auto;
+}
+input[type="text"],i {
+    padding: 1px 0px;
+}
+.textbox {
+    position: relative;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    border-radius: 0px 0px 0px 0px;
+}
+.textbox .textbox-text {
+    font-size: 12px;
+    border: 0;
+    margin: 0;
+    padding: 4px;
+    white-space: normal;
+    vertical-align: top;
+    outline-style: none;
+    resize: none;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    border-radius: 0px 0px 0px 0px;
+}
+textarea {
+    resize: none;
+    overflow-y: auto;
+    color: #666666;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+input, textarea {
+    outline-color: #ccc;
+}
+.formBtn {
+    padding: 0 10px;
+    border: none;
+    outline: none;
+    height: 26px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #22B3C8;
+}
+element.style {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    background: rgb(255, 255, 255);
+}
+.webuploader-pick-hover {
+    background: #008c93;
+}
+.webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #22B3C8;
+    padding: 2px 10px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    /* overflow: hidden; */
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.gxf_designTable_box > li > p > span {
+    margin-left: 10px;
+}
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px,1px,1px,1px);
+}
+.margt {
+    margin-top: 10px;
+}
+    </style>
+</head>
+
+<body>
+    <!-- <div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form" method="post" id='myform' onsubmit="return false" enctype="multipart/form-data">
+        <div class=" gxf_problem gxf_problem_title">         
+            <div><h2><span></span>课题基本信息</h2></div>
+        </div>
+        </form>
+    </div> -->
+    <div class="main" id="addTask" style="">
+        <div class=" gxf_problem gxf_problem_title">
+            <div><h2><span></span>提交答辩申请</h2></div>
+            <div class="gxf_pro_content">
+                <!-- 无自定义时显示 -->
+                
+                <!-- 有自定义时显示 -->
+                <form class="layui-form" method="post" action="{:url('dabian/dabian')}" enctype="multipart/form-data">
+                <ul class="gxf_designTable_box" id="designTaskTable" style="">
+                    <li><p>申请理由<span class="writerText margl"> 共输入<i style="color: #f00;" class="first_str"> 0 </i>字符</span><span class="statement margl"></span></p><input id="txt_34_zynr" type="text" class="easyui-textbox textbox-f" data-options="multiline:true,height:100" style="width: 100%; display: none;"><span class="textbox easyui-fluid" style="width: 1039px; height: 98px;">
+                        <textarea id="_easyui_textbox_input5" name="liyou" class="textbox-text validatebox-text textbox-prompt" autocomplete="off" tabindex="" placeholder="" style="margin: 0px; height: 90px; width: 1031px;"></textarea>
+                        <input type="hidden" class="textbox-value" value=""></span></li>
+                        <!-- <li><p>查阅参考文献、资料要求<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl"></span></p><input id="txt_35_zlyq" type="text" class="easyui-textbox textbox-f" data-options="multiline:true,height:100" style="width: 100%; display: none;"><span class="textbox easyui-fluid" style="width: 1039px; height: 98px;">
+                            <textarea id="_easyui_textbox_input6" name="wenxian" class="textbox-text validatebox-text textbox-prompt" autocomplete="off" tabindex="" placeholder="" style="margin: 0px; height: 90px; width: 1031px;"></textarea><input type="hidden" class="textbox-value" value=""></span></li>
+                        <li><p>进度计划<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl"></span></p><input id="txt_36_jdjh" type="text" class="easyui-textbox textbox-f" data-options="multiline:true,height:100" style="width: 100%; display: none;"><span class="textbox easyui-fluid" style="width: 1039px; height: 98px;">
+                            <textarea id="_easyui_textbox_input7" name="jihua" class="textbox-text validatebox-text textbox-prompt" autocomplete="off" tabindex="" placeholder="" style="margin: 0px; height: 90px; width: 1031px;"></textarea>
+                            <input type="hidden" class="textbox-value"  value=""></span></li> -->
+                        <!-- <li><p>论文 (设计)工作起止日期<span class="writerText margl"> 共输入<i style="color: #f00;"> 0 </i>字符</span><span class="statement margl">请按如下格式填写：××××年××月××日至××××年××月××日</span></p><input id="txt_37_qzrq" type="text" class="easyui-textbox textbox-f" data-options="multiline:true,height:30" style="width: 100%; display: none;"><span class="textbox easyui-fluid" style="width: 1039px; height: 28px;">
+                            <textarea id="_easyui_textbox_input8" class="textbox-text validatebox-text textbox-prompt" autocomplete="off" tabindex="" placeholder="" style="margin: 0px; height: 20px; width: 1031px;"></textarea>
+                            <input type="hidden" class="textbox-value" value=""></span></li> -->
+                        </ul>
+                <ul class="gxf_designTable_box" style="">
+                    <!-- <li id="fujian" style="">
+                        <p>附件<span class="statement">上传有关附件，支持附件格式为doc，docx，pdf，wps，rar，zip</span></p>
+                        <div class="layui-form-item"> -->
+                <!-- <label for="L_repass" class="layui-form-label">
+                  <span class="x-red"></span>
+              </label> -->
+                <!-- <div class="layui-input-inline">
+                    <input type="file" id="L_repass" name="file_path" autocomplete="off" class="layui-input">
+                </div>
+            </div> -->
+                        <!-- <input type="text" id="txtFileName" class="easyui-textbox textbox-f" data-options="width:285,readonly:true" style="display: none;"><span class="textbox textbox-readonly" style="width: 283px;"><input id="_easyui_textbox_input4" type="text" class="textbox-text validatebox-text validatebox-readonly textbox-prompt" autocomplete="off" tabindex="" readonly="readonly" placeholder="" style="margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 24px; line-height: 24px; width: 275px;"><input type="hidden" class="textbox-value" value=""></span> -->
+                        <!-- <span id="webUploaderPick" class="webuploader-container"><div class="webuploader-pick">浏览</div><div id="rt_rt_1d60nc5fcmds5am16k1190j1rm02" style="position: absolute; top: -1px; left: 5px; width: 48px; height: 24px; overflow: hidden; bottom: auto; right: auto;"><input type="file" capture="camera" name="file" class="webuploader-element-invisible" accept=".doc,.docx,.pdf,.wps,.rar,.zip"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></span> -->
+                        <!-- <div id="divFileProgressContainer"></div> -->
+                    <!-- </li> -->
+                    <li>
+                        <input type="hidden" name="gonghao" value="{$info_ren.gonghao}" />
+                        <input id="submit" class="formBtn margt" type="submit" value="提交答辩申请" style=""></li>
+                </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+    <xblock>
+      <!-- <button class="layui-btn" onclick="x_admin_show('添加用户','{:url('index/addUser')}',600,400)"><i class="layui-icon"></i>添加</button> -->
+      <button class="layui-btn">我的答辩申请</button>
+       {eq name="$info_ren.states" value="0"}
+       <span class="x-right" style="line-height:40px">共有数据：0 条</span> 
+       {else/}
+       <span class="x-right" style="line-height:40px">共有数据：1 条</span>
+       {/eq}
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>课题题目</th>
+          <th>姓名(学号)</th>
+          <th>指导老师(编号)</th>
+          <th>题目来源</th>
+          <th>提交时间</th>
+           <th>提交状态</th> 
+          <th>审核状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+          {eq name="$info_ren.states" value="0"}
+        <tr id="" >
+          <td></td>
+          <td></td>   
+          <td></td> 
+          <td></td>
+          <td></td>  
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            
+          </td>
+        </tr>
+        {else/}
+        <tr id="" >
+          <td style="text-align:center;">1</td>
+          <td>{$info_ren.keti_name}</td>   
+          <td>{$info_ren.user}({$info_ren.user_xuehao})</td> 
+          <td>{$info_ren.teacher}({$info_ren.gonghao})</td> 
+          <td>{$info_ren.origin}</td>
+          <td>{$info_ren.times|date='Y-m-d H:i:s',###}</td>
+           {eq name="$info_ren.dabian_state" value="0"}
+            <td style="color:red;">未提交</td>
+          {/eq}
+          {eq name="$info_ren.dabian_state" value="1"}
+            <td style="color:green;">已提交</td>
+          {/eq}
+          {eq name="$info_ren.state" value="0"}
+            <td style="color:blue;">正在审核</td>
+          {/eq}
+          {eq name="$info_ren.state" value="1"}
+            <td style="color:green;">审核通过</td>
+          {/eq}
+          {eq name="$info_ren.state" value="2"}
+            <td style="color:red;">审核不通过</td>
+          {/eq}
+          <td>
+            <a href="javascript:" onclick="x_admin_show('查看','{:url('dabian/see')}',600,400)" style="color:blue;">查看</a>
+          </td>
+        </tr>
+        {/eq}
+      </tbody>
+    </table> 
+  </div>
+
+</body>
+
+<script>
+function getstr(obj,cla){
+        $(obj).on("keyup",function(){
+            $(cla).text($(obj).val().length);  
+        })
+      }
+      getstr('#_easyui_textbox_input5','.first_str');
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    //监听提交
+    form.on('submit(add)', function(data){
+        console.log(data);
+        //发异步，把数据提交给php
+
+        $.ajax({
+          url:"{:url('power/edit')}",
+          data:$('#myform').serialize(),
+          dataType:'json',
+          type:'post',
+          success:function(data){
+                if(data.status==1){
+                    layer.alert("修改成功", {icon: 6},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 7});
+                }
+          }
+        })
+        return false;
+    });
+
+});
+
+</script>
+
+
+</html>

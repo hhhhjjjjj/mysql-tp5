@@ -1,0 +1,98 @@
+{extend name='public/base'}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {load href="__JS__/abc.js"}  <!-- __JS__  /static/js -->
+    {load href="__CSS__/abc.css"}  <!-- __CSS__  /static/css -->
+    {load href="__STATIC__/abc.css"}   <!-- __CSS__  /static -->
+    <title>标签</title>
+    {include file='public/head'}
+</head>
+<body>
+
+{block name='body'}这里是新的body{/block}
+
+<!-- 在模板显示变量 并设置默认值 -->
+{$name|default=123}  {/* 变量的默认值 */} <!-- HTML注释 -->
+
+<!-- 在模板定义变量 -->
+{assign name='str' value='abcde'}
+{assign name='time' value='1540956892' }
+
+<!-- 在模板里使用函数 -->
+{$name|md5} <!-- md5($name) --->
+{$str|substr=0,3}  <!-- substr($str,0,3) -->
+{$time|date='Y-m-d',###}   <!-- ### 表示传入函数的变量 date('Y-m-d H:i:s',$time) -->
+{$str|substr=0,3|md5}  <!-- md5(substr($str,0,3)) -->
+<br/>
+
+<!-- name 变量 id 循环赋值的变量  mod:取模 i:计数变量 key:数组的键 -->
+<!-- {volist name='li' id='val' mod=2 key='k' }
+    {$val.id},{$val.depart_name},求于：{$mod},记数：{$k},键:{$key}<br/>
+{/volist} -->
+
+<!-- foreach 循环 -->
+<!-- {foreach $li as $key=>$val}
+    {$val.id}
+{/foreach} -->
+
+<!-- for($i=0;i<10;i++) -->
+<br/>
+<!-- start:开始值 end：结束 name：变量名 comparison：比较关系,默认是小于 step:步长   -->
+<!-- {for start='0' end='10' name='i' step='3' } 
+    {$i}
+{/for} -->
+<br/>
+
+{assign name='number' value='10'}
+
+<!-- {if $number > 11  }
+    符合条件
+{elseif $number > 9 /}    
+    符合第二个条件
+{else/}
+    不符合条件
+{/if} -->
+
+{if in_array($number,[1,10,11])}
+    包含
+{else/}
+    不包含
+{/if}
+
+<!-- {if ($number>11 OR 1==1) and 1>2  }
+    符合条件
+{else /}    
+    不符合条件
+{/if} -->
+
+<!-- {if condition="$number>1"}
+    符合条件
+{/if} -->
+
+<!--  eq neq gt lt elt egt heq(===) hneq(!==) -->
+<!-- {eq name="number" value='10'}
+    等于10
+{else/}    
+    不等于10
+{/eq} -->
+
+<!-- notin -->
+<!-- {in name='number' value='1,12,11'}
+    包含
+{else/}
+    不包含
+{/in} -->
+
+<!-- noempty -->
+{empty name="number"}
+    空
+{else/}
+    不空
+{/empty}
+
+</body>
+</html>

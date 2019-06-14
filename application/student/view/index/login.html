@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>毕业设计跟踪管理系统</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="__CSS__/font.css">
+	<link rel="stylesheet" href="__CSS__/xadmin.css">
+    <script type="text/javascript" src="__JS__/jquery-3.2.1.min.js"></script>
+    <style>
+        .layui-form input[type=radio], .layui-form select {
+     display: inline-block; 
+}
+    </style>
+</head>
+<body class="login-bg">
+    <div class="x-body layui-anim layui-anim-up">
+    <div class="login layui-anim layui-anim-up">
+        <div class="message">毕业设计跟踪管理系统</div>
+        <div id="darkbannerwrap"></div>
+        
+        <form method="post" class="layui-form" action="{:url('index/doLogin')}" id="form_login">
+            <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+            <hr class="hr10">
+            <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+             <hr class="hr10"> 
+              <div class="layui-form-item"> 
+	           <label class="layui-form-label" style="text-align:left;">帐号类型</label> 
+	          <div class="layui-input-block" style="line-height:36px;">
+		        <input type="radio" name="shenfen"  value="S" title="学生">学生
+                <input type="radio" name="shenfen"  value="T" title="老师">老师
+                <input type="radio" name="shenfen"  value="A" title="管理员">管理员
+	        </div>
+           </div>   
+        <!-- <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                  课题来源
+              </label>
+                <div class="layui-input-inline">
+                    <select name="origin" >
+                            <option value="请选择">请选择</option>
+                            <option value="指导教师拟定">指导教师拟定</option>
+                            <option value="学生建议">学生建议</option>
+                            <option value="企业和社会征集">企业和社会征集</option>
+                            <option value="科研单位提供">科研单位提供</option>
+                    </select>
+                </div>
+            </div> -->
+            <input type="text" name="code" placeholder="验证码" id="code"><img src="{:captcha_src()}" class="verify" onclick="javascript:this.src='{:captcha_src()}?rand='+Math.random()" >
+            <hr class="hr10">
+            <input value="登录" lay-submit lay-filter="login" style="width:30%; display:inline; margin-right:40%;" type="submit"><input value="注册" lay-submit lay-filter="login" style="width:30%;display:inline;" type="button">
+            
+            <!-- <hr class="hr20" > -->
+        </form>
+        <!-- <div class="layui-form-item">
+     <label class="layui-form-label" style="width:100px">是否已购买：</label>
+     <div class="layui-input-block" id="IsPurchased">
+           <input type="radio"  name="t" value="是" title="是" />
+           <input type="radio"  name="t" value="否" title="否" />
+     </div> -->
+</div>
+
+    </div>
+    </div>
+</body>
+<script type="text/javascript">
+$('input:submit').click(function(){
+    var code=$('input[name="code"]').val();
+    if(code==""){
+        alert('验证码不能为空');
+        return false;
+    }
+})
+$('input:button').click(function(){
+    // $.ajax({
+    //       url:"{:url('index/register')}",
+    //       data:$('#myform').serialize(),
+    //       dataType:'json',
+    //       type:'post',
+    //       success:function(data){
+    //             // if(data.status==1){
+    //             //     layer.alert("修改成功", {icon: 6},function () {
+    //             //         // 获得frame索引
+    //             //         var index = parent.layer.getFrameIndex(window.name);
+    //             //         //关闭当前frame
+    //             //         parent.layer.close(index);
+    //             //     });
+    //             // }else{
+    //             //     layer.alert(data.msg, {icon: 7});
+    //             // }
+    //       }
+    //     })
+    window.location.href="{:url('index/register')}";
+
+})
+
+</script>
+</html>

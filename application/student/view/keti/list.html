@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>毕业设计跟踪管理系统</title>
+  <link rel="stylesheet" href="__CSS__/font.css">
+  <link rel="stylesheet" href="__CSS__/xadmin.css">
+  <script type="text/javascript" src="__JS__/jquery-3.2.1.min.js"></script>
+  <script src="__STATIC__/lib/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="__JS__/xadmin.js"></script>
+
+
+</head>
+
+<body class="layui-anim layui-anim-up">
+  <div class="x-nav">
+    <span class="layui-breadcrumb">
+      <a href="">师生双选管理</a>
+      <a href="">学生选题</a>
+    </span>
+  </div>
+  <div class="x-body">
+    <div class="layui-row">
+         <form class="layui-form layui-col-md12 x-so">
+        <input class="layui-input" placeholder="课题题目" name="keti_name" id="start" value="{$url_map.keti_name|default=""}">
+        <input class="layui-input" placeholder="指导教师" name="teacher" id="end" value='{$url_map.teacher|default=""}'>
+        <input class="layui-input" placeholder="教师编号" name="gonghao" id="start" value="{$url_map.gonghao|default=""}">
+        <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+      </form>   
+    </div>
+    <xblock>
+      <button class="layui-btn">课题列表</button>
+      <span class="x-right" style="line-height:40px">共有数据：{$info.count}条</span>
+    </xblock>
+    <table class="layui-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>课题题目</th>
+          <th>题目来源</th>
+          <th>指导老师</th>
+          <th>老师编号</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+        {volist name='list' id='val' key='k'}
+        <tr id="tr{$val.id}" >
+          <td>{$page?($currentPage-1)*8+$k:$k}</td>
+          <td>{$val.keti_name}</td>
+          <td>{$val.origin}</td>
+          <td>{$val.teacher}</td>
+          <td>{$val.gonghao}</td>
+          <td>
+            <!-- <a href="javascript:" onclick="x_admin_show('添加权限','{:url('power/edit',['id'=>$val.id])}',600,400)" ><i class="layui-icon">&#xe642;</i></a>
+            <a href="javascript:" onclick="del(this,{$val.id})" ><i class="layui-icon">&#xe640;</i></a> -->
+            <a href="javascript:" onclick="x_admin_show('查看课题','{:url('keti/seeketi',['id'=>$val.id])}',600,400)" style="color:blue;">查看</a>
+            {eq name="$val.state" value="0"}
+            <a href="javascript:" onclick="choice(this,{$val.id})" style="color:red;">选择课题</a>
+            {else/}
+            <a href="javascript:" style="color:green;">有人选</a>
+            {/eq}
+          </td>
+        </tr>
+        {/volist}
+      </tbody>
+    </table>
+    <div class="page">
+      <div>
+        {$list->render()}
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+<script>
+
+
+function choice(obj,id){
+    layer.confirm('确认要选择吗？',function(index){
+        $.ajax({
+          url:"{:url('keti/choice')}",
+          data:{id:id},
+          dataType:'json',
+          type:'post',
+          success:function(data){
+              // console.log(data.status);
+              if(data.renwu_state==1){
+                  //发异步删除数据
+                  // $(obj).parents("tr").remove();
+                  layer.msg('选择失败!您的任务书正在审核',{icon:2,time:1000});
+              }else{
+                $.ajax({
+                  url:"{:url('keti/dochoice')}",
+                  data:{id:id},
+                  dataType:'json',
+                  type:'post',
+                  success:function(data){
+                        if(data.status==1){
+                            layer.msg('选择成功!',{icon:1,time:1000},function () {
+                        // parent.layer.close(index);
+                       location.href = '{:url('student/keti/ketiList')}';
+                    //    location.reload();
+                        // 获得frame索引
+                        // var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        
+                    });
+                        }else{
+                            layer.msg('选择失败!',{icon:2,time:1000});
+                        }
+                  }
+                })
+                  
+              }
+          }
+        })
+    });
+}
+
+
+
+</script>
+
+
+</html>
